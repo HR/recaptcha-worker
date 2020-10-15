@@ -1,7 +1,8 @@
 /**
- * Recaptcha worker function
- * Cloudflare Workers
+ * reCAPTCHA Cloudflare Worker
+ * Server-side Google reCAPTCHA validation
  */
+
 addEventListener('fetch', event => {
   event.respondWith(handleRequest(event.request))
 })
@@ -38,12 +39,22 @@ async function handleRequest (event) {
       })
     }
 
-    // Get reCAPTCHA secret from KV and verify
-    const recaptchaSecret = await RECAPTCHA.get('recaptchasecret')
+    if (typeof RECAPTCHA_SECRET === 'undefined') {
+      throw new Error('RECAPTCHA_SECRET secret not set')
+    }
+
+    // Verify token
     const recaptchaResponse = await fetch(
-      `https://www.google.com/recaptcha/api/siteverify?secret=${recaptchaSecret}&response=${recaptchaToken}`,
+      `https://www.google.com/recaptcha/api/siteverify`,
       {
-        method: 'POST'
+        method: 'POST',
+        headers: {
+          'Content-Type': 'application/json'
+        },
+        body: JSON.stringify({
+          secret: RECAPTCHA_SECRET,
+          response: recaptchaToken
+        })
       }
     )
     const recaptchaBody = await recaptchaResponse.json()
@@ -57,7 +68,10 @@ async function handleRequest (event) {
     }
 
     // Success
-    return new Response('reCAPTCHA passed', { status: 202, headers: corsHeaders })
+    return new Response('reCAPTCHA passed', {
+      status: 202,
+      headers: corsHeaders
+    })
   } catch (err) {
     // Handle unexpected errors
     console.error(err)

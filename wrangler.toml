@@ -1,0 +1,3 @@
+name = "recaptcha-worker"
+type = "javascript"
+workers_dev = true
