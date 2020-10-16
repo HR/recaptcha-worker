@@ -9,13 +9,13 @@ addEventListener('fetch', event => {
 
 /**
  * Respond to the request
- * @param {Request} event
+ * @param {Request} request
  */
-async function handleRequest (event) {
+async function handleRequest (request) {
   const corsHeaders = setCorsHeaders(new Headers())
 
   try {
-    const requestMethod = event.request.method
+    const requestMethod = request.method
 
     // Allow CORS
     if (requestMethod === 'OPTIONS') {
@@ -31,9 +31,9 @@ async function handleRequest (event) {
     }
 
     // Ensure recaptcha token given
-    const recaptchaToken = event.request.headers.get('g-recaptcha')
+    const recaptchaToken = request.headers.get('g-recaptcha')
     if (!recaptchaToken) {
-      return new Response('Invalid reCAPTCHA', {
+      return new Response('Invalid reCAPTCHA token', {
         status: 400,
         headers: corsHeaders
       })
