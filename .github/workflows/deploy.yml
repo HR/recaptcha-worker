@@ -1,19 +1,22 @@
-name: Build
+name: Deploy to Cloudflare Workers
+
 on:
   push:
     branches:
-        - master
-  pull_request:
+      - master
   repository_dispatch:
-deploy:
-  runs-on: ubuntu-latest
-  timeout-minutes: 60
-  needs: test
-  steps:
-    - uses: actions/checkout@v2
-    - name: Publish
-      uses: cloudflare/wrangler-action@1.2.0
-      with:
-        apiToken: ${{ secrets.CF_API_TOKEN }}
-      env:
-        CF_ACCOUNT_ID: ${{ secrets.CF_ACCOUNT_ID }}
+
+
+jobs:
+  deploy:
+    runs-on: ubuntu-latest
+    name: Deploy
+    timeout-minutes: 60
+    steps:
+      - uses: actions/checkout@v2
+      - name: Publish
+        uses: cloudflare/wrangler-action@1.2.0
+        with:
+          apiToken: ${{ secrets.CF_API_TOKEN }}
+        env:
+          CF_ACCOUNT_ID: ${{ secrets.CF_ACCOUNT_ID }}
