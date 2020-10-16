@@ -1,0 +1,23 @@
+{
+  "name": "recaptcha-worker",
+  "version": "1.0.0",
+  "description": "reCAPTCHA Cloudflare Worker",
+  "main": "index.js",
+  "scripts": {
+    "test": "echo \"Error: no test specified\" && exit 1"
+  },
+  "repository": {
+    "type": "git",
+    "url": "git+https://github.com/HR/recaptcha-worker.git"
+  },
+  "keywords": [
+    "cloudflare",
+    "reCAPTCHA"
+  ],
+  "author": "Habib Rehman",
+  "license": "MIT",
+  "bugs": {
+    "url": "https://github.com/HR/recaptcha-worker/issues"
+  },
+  "homepage": "https://github.com/HR/recaptcha-worker#readme"
+}
