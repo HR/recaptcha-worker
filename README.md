@@ -29,7 +29,7 @@ Like so:
 $.ajax({
   type: 'POST',
   url: 'https://recaptcha-worker.YOUR-SUBDOMAIN.workers.dev',
-  headers: { 'g-recaptcha': token },
+  headers: { 'g-recaptcha': YOUR_RECAPTCHA_TOKEN },
   error: function (res, status, error) {
     if (res.status === 400) {
       // Verification failed
