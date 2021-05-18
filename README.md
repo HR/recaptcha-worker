@@ -50,6 +50,6 @@ $.ajax({
 
 If the verification request succeeds, you'll get a `202` HTTP status code response with the body `reCAPTCHA passed`. 
 
-If the verification request fails, you will get `400` HTTP status code response with the body 'reCAPTCHA failed'. 
+If the verification request fails, you will get `400` HTTP status code response with the body `reCAPTCHA failed`. 
 
 Otherwise, for any other error, you will get `500` HTTP status code response with the body being the error stack. 
